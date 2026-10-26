@@ -1,0 +1,116 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Avatar ASK System</title>
+    <link href="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/cld-video-player.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+        .container { max-width: 800px; width: 100%; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+      h1 { text-align: center; color: #333; }
+        #player-container { width: 100%; margin-bottom: 20px; border-radius: 8px; overflow: hidden; background: #000; }
+        
+        /* Osgood Clusters Styling */
+        .cluster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .cluster { border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; }
+        .cluster-title { font-weight: bold; margin-bottom: 10px; color: #007bff; text-transform: uppercase; font-size: 0.8em; letter-spacing: 1px; }
+        .question-btn { 
+            display: block; width: 100%; text-align: left; background: #fff; 
+            border: 1px solid #ddd; padding: 8px 12px; margin-bottom: 5px; 
+            border-radius: 4px; cursor: pointer; font-size: 0.9em; transition: 0.2s;
+        }
+        .question-btn:hover { background: #f0f7ff; border-color: #007bff; color: #007bff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AI Mentor: Tom</h1>
+    
+    <div id="player-container">
+        <video id="avatar-player" class="cld-video-player cld-fluid"></video>
+    </div>
+
+    <div class="cluster-grid">
+        <div class="cluster">
+            <div class="cluster-title">Questions</div>
+            <button class="question-btn" onclick="askAvatar(10, 12)">What is the speaker's name?</button>
+            <button class="question-btn" onclick="askAvatar(12, 16)">How many years of experience does the speaker have?</button>
+            <button class="question-btn" onclick="askAvatar(51, 55)">What is Mentored Experiential Learning?</button>
+            <button class="question-btn" onclick="askAvatar(61, 65)">What is a SOLE (Self Organized Learning Environment)?</button>
+            <button class="question-btn" onclick="askAvatar(71, 75)">What's a Supervised Courseroom?</button>
+        </div>
+<!--
+        <div class="cluster">
+            <div class="cluster-title">Application</div>
+            <button class="question-btn" onclick="askAvatar(10, 20)">⚠️ What are the warnings?</button>
+            <button class="question-btn" onclick="askAvatar(21, 25)">💡 Any opportunities here?</button>
+        </div>
+        <div class="cluster">
+            <div class="cluster-title">Comparison</div>
+            <button class="question-btn" onclick="askAvatar(29, 33)">🔄 Is there an alternative?</button>
+            <button class="question-btn" onclick="askAvatar(34, 39)">🎨 Can you give an analogy?</button>
+        </div>
+
+        <div class="cluster">
+            <div class="cluster-title">Elaboration</div>
+            <button class="question-btn" onclick="askAvatar(51, 59)">🌍 What is the context?</button>
+            <button class="question-btn" onclick="askAvatar(60, 71)">🔍 Give me the specifics.</button>
+        </div>
+
+        <div class="cluster">
+            <div class="cluster-title">Explanation</div>
+            <button class="question-btn" onclick="askAvatar(71, 80)">⚙️ What caused this?</button>
+            <button class="question-btn" onclick="askAvatar(81, 93)">📈 What were the results?</button>
+        </div>
+-->
+    </div>
+</div>
+<!-- 
+  ASKsomeone clips
+
+00:00 Start Green Slide
+00:05 clapperboard
+00:10 Tom "Hi! I'm Tom! What is the speaker's name?  
+00:21 What is your answer to this question? 
+00:26 Andy
+00:29 ASK hypermedia
+00:34 Question Categories
+00:39 Empowering our clients
+00:44 Questions about education
+00:46 Add D-ID 
+00:51 Mentored Experiential Learning Question 1 
+01:01 Self Organized Learning Environment (SOLE) Question 1 
+01:11 Supervised Courseroom Question 1
+01:21 Virtual Maize Breeding Facility image
+01:23 Splash Screen
+-->
+<script src="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/cld-video-player.min.js"></script>
+
+<script>
+    // 1. Initialize Player (No API Secret needed!)
+    const cld = cloudinary.videoPlayer('avatar-player', {
+        cloud_name: 'introtom' // Replace with your Cloud Name
+    });
+
+    // 2. The Interaction Function
+    function askAvatar(startTime, endTime) {
+        // We set the source with a transformation for trimming
+        cld.source('ASKsomeone_h7dqmc', { // Replace with your Video Public ID
+            transformation: {
+                start_offset: startTime,
+                end_offset: endTime
+            }
+        });
+        
+        cld.play();
+    }
+
+    // Optional: Load the "Idle" state initially
+    window.onload = () => {
+        cld.source('ASKsomeone_h7dqmc', { transformation: { start_offset: 0, end_offset: 10 } });
+    };
+</script>
+
+</body>
+</html>
